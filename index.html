@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+        />
+        <meta name="theme-color" content="#1b5e20" />
+        <title>¡Mata al Bicho!</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <main id="app">
+            <button
+                id="musicBtn"
+                class="music-btn"
+                type="button"
+                aria-pressed="false"
+            >
+                🎵 Música: apagada
+            </button>
+            <section id="startScreen" class="screen active">
+                <img
+                    class="school-shield"
+                    src="assets/insects/Escudo.jpg"
+                    alt="Escudo del instituto"
+                />
+                <div class="top-nav">
+                    <button class="nav-btn active" data-tab="homeTab">
+                        🏠 Inicio
+                    </button>
+                    <button class="nav-btn" data-tab="learnTab">
+                        📚 Aprende
+                    </button>
+                    <button class="nav-btn" data-tab="rankingTab">
+                        🏆 Ranking
+                    </button>
+                </div>
+                <div id="homeTab" class="tab-content active">
+                    <div class="card intro">
+                        <div class="logo-bug">🐛</div>
+                        <h1>¡Mata al Bicho!</h1>
+                        <p class="subtitle">🌱 ¡Protege tu cultivo!</p>
+                        <p class="instructions">
+                            Toca las <strong>plagas</strong> para
+                            eliminarlas.<br />¡No toques los insectos
+                            beneficiosos!
+                        </p>
+                        <label for="playerName">Nombre del jugador</label
+                        ><input
+                            id="playerName"
+                            type="text"
+                            maxlength="18"
+                            placeholder="Escribe tu nombre"
+                            autocomplete="off"
+                        />
+                        <button id="startBtn" class="btn primary big">
+                            🌱 COMENZAR
+                        </button>
+                        <button id="howBtn" class="btn secondary">
+                            ❓ ¿Cómo se juega?
+                        </button>
+                    </div>
+                </div>
+                <div id="learnTab" class="tab-content">
+                    <div class="card learn-card">
+                        <h2>📚 Aprende antes de jugar</h2>
+                        <p class="lead">
+                            Conoce qué insectos debemos controlar y cuáles
+                            ayudan al cultivo.
+                        </p>
+                        <div id="insectInfo" class="insect-grid"></div>
+                    </div>
+                </div>
+                <div id="rankingTab" class="tab-content">
+                    <div class="card ranking-card">
+                        <h2>🏆 Ranking</h2>
+                        <p class="lead">
+                            Las mejores puntuaciones guardadas en este
+                            dispositivo.
+                        </p>
+                        <div id="rankingList"></div>
+                        <button
+                            id="clearRankingBtn"
+                            class="btn secondary small"
+                        >
+                            🗑️ Borrar ranking
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="gameScreen" class="screen">
+                <header class="hud">
+                    <div class="hud-item">⭐ <strong id="score">0</strong></div>
+                    <div class="hud-item">🔥 <strong id="combo">0</strong></div>
+                    <div class="hud-item">⏱️ <strong id="time">30</strong></div>
+                </header>
+                <div class="progress"><div id="timeBar"></div></div>
+                <div id="gameBoard" class="gameBoard"></div>
+                <div id="feedback" class="feedback"></div>
+            </section>
+
+            <section id="resultScreen" class="screen">
+                <div class="result-nav">
+                    <button id="resultLearnBtn" class="nav-btn">
+                        📚 Aprende</button
+                    ><button id="resultRankingBtn" class="nav-btn">
+                        🏆 Ranking
+                    </button>
+                </div>
+                <div class="card result">
+                    <div id="resultEmoji" class="result-emoji">🏆</div>
+                    <h2>¡Partida terminada!</h2>
+                    <div class="final-score">
+                        <span id="finalScore">0</span><small>PUNTOS</small>
+                    </div>
+                    <div class="stats">
+                        <div>
+                            <span>🐛 Plagas eliminadas</span
+                            ><strong id="hits">0</strong>
+                        </div>
+                        <div>
+                            <span>🐞 Beneficiosos tocados</span
+                            ><strong id="mistakes">0</strong>
+                        </div>
+                        <div>
+                            <span>🔥 Mejor combo</span
+                            ><strong id="bestCombo">0</strong>
+                        </div>
+                    </div>
+                    <div id="educationBox" class="education"></div>
+                    <button id="againBtn" class="btn primary big">
+                        🔄 JUGAR OTRA VEZ</button
+                    ><button id="homeBtn" class="btn secondary">
+                        🏠 INICIO
+                    </button>
+                </div>
+                <div id="resultLearnPanel" class="card hidden-panel">
+                    <h2>📚 Repasa los insectos</h2>
+                    <div id="resultInsectInfo" class="insect-grid"></div>
+                </div>
+                <div id="resultRankingPanel" class="card hidden-panel">
+                    <h2>🏆 Ranking</h2>
+                    <div id="resultRankingList"></div>
+                </div>
+            </section>
+
+            <div id="howModal" class="modal hidden">
+                <div class="modal-card">
+                    <button id="closeHow" class="close">×</button>
+                    <h2>🐝 ¿Cómo se juega?</h2>
+                    <p>⏱️ Tienes <strong>30 segundos</strong>.</p>
+                    <p>🐛 Toca una plaga para ganar puntos.</p>
+                    <p>🐞 No toques los insectos beneficiosos.</p>
+                    <p>
+                        🔥 Haz varios aciertos seguidos para aumentar tu combo.
+                    </p>
+                    <p>🌱 ¡Aprende mientras proteges el cultivo!</p>
+                </div>
+            </div>
+        </main>
+        <script src="game.js"></script>
+    </body>
+</html>
